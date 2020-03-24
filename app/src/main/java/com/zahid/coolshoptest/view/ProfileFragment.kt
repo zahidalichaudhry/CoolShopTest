@@ -26,7 +26,9 @@ import com.zahid.coolshoptest.api.ApiUtils.IMAG_BASE_URL
 import com.zahid.coolshoptest.managers.MediaManager
 import com.zahid.coolshoptest.utils.Status
 import kotlinx.android.synthetic.main.chose_image_type.view.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.img_profile
 import java.io.IOException
 import java.util.*
 
@@ -64,10 +66,18 @@ class ProfileFragment : Fragment() {
                     view.tv_pass.text = it.data?.password
 
                     if (it.data?.avatarUrl != null && it.data?.avatarUrl != "") {
-                        Glide.with(activity!!)
-                            .load(IMAG_BASE_URL+ it.data?.avatarUrl)
-                            .placeholder(R.drawable.user)
-                            .into(view.img_profile)
+
+                        if(mViewModel.appManager.persistenceManager.isLocalSource){
+
+                            img_profile.setImageBitmap(mViewModel.appManager.mediaManager.decodBitmap(it.data?.avatarUrl))
+
+                        }else{
+                            Glide.with(activity!!)
+                                .load(IMAG_BASE_URL+ it.data?.avatarUrl)
+                                .placeholder(R.drawable.user)
+                                .into(view.img_profile)
+                        }
+
                     }
                 }
                 Status.status.ERROR -> {
@@ -192,15 +202,12 @@ class ProfileFragment : Fragment() {
                 Permisions = true
                 ChoseOption()
             } else {
-                ActivityCompat.requestPermissions(
-                    activity!!,
+               requestPermissions(
                     permission,
                     PHOTO_PERMISSION_CODE
                 )
             }
-        } else {
-            ActivityCompat.requestPermissions(
-                activity!!,
+        } else { requestPermissions(
                 permission,
                 PHOTO_PERMISSION_CODE
             )
@@ -209,8 +216,7 @@ class ProfileFragment : Fragment() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         Permisions = false
         when (requestCode) {

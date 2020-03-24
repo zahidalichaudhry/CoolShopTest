@@ -9,6 +9,7 @@ import androidx.exifinterface.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Base64;
 
 import com.kosalgeek.android.photoutil.ImageBase64;
 
@@ -19,7 +20,7 @@ import java.util.Objects;
 
 public class MediaManager {
 
-    Context context;
+    private Context context;
 
     public MediaManager(Context context) {
         this.context = context;
@@ -148,8 +149,15 @@ public class MediaManager {
 
         ecodedString = ImageBase64.encode(bitmap);
 
-
         return ecodedString;
-        //this is string to convert image into Imagebase64 to send to sever
+
+    }
+    public Bitmap decodBitmap(String string) {
+//        Bitmap bitmap;
+
+
+        byte[] decodedString = Base64.decode(string, Base64.DEFAULT);
+        //        bitmap = ImageBase64.decode(string);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 }

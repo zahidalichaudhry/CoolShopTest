@@ -1,6 +1,7 @@
 package com.zahid.coolshoptest.view
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.zahid.coolshoptest.viewmodel.MainViewModel
 
 import com.zahid.coolshoptest.R
 import com.zahid.coolshoptest.utils.Status
+import kotlinx.android.synthetic.main.chose_source.view.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import java.util.*
 
@@ -29,16 +31,19 @@ class SignIn : Fragment() {
         val view: View =
             inflater.inflate(R.layout.fragment_sign_in, container, false)
 
+
+        ChoseOption()
+
         view.btn_sign_in.setOnClickListener {
-            if (view.ed_email.text == null ) {
+            if (view.ed_email.text == null) {
                 Toast.makeText(activity, "Please Enter Email", Toast.LENGTH_SHORT)
                     .show()
 
-            }else if (view.ed_pass.text == null ) {
+            } else if (view.ed_pass.text == null) {
                 Toast.makeText(activity, "Please Enter Email", Toast.LENGTH_SHORT)
                     .show()
 
-            }else{
+            } else {
                 mViewModel.getSession(view.ed_email.text.toString(), view.ed_pass.text.toString())
 
             }
@@ -52,7 +57,11 @@ class SignIn : Fragment() {
                         1
                     )
 
-                    Toast.makeText(activity, it.data?.token+" "+it.data?.userid, Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        activity,
+                        it.data?.token + " " + it.data?.userid,
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                     getView()?.let { it1 ->
                         Navigation.findNavController(it1)
@@ -82,5 +91,29 @@ class SignIn : Fragment() {
         return view
     }
 
+    //////////////////////////Chose_Options/////////////////////////////////////
+    private fun ChoseOption() {
+        val builder: AlertDialog = AlertDialog.Builder(activity).create()
+        val inflater: LayoutInflater = activity!!.layoutInflater
+        val dialogView: View = inflater.inflate(R.layout.chose_source, null)
+        builder.setView(dialogView)
+        builder.setTitle("Please Choose your Backend Default is Local")
+        dialogView.Web.setOnClickListener {
+            mViewModel.appManager.persistenceManager.isLocalSource(false)
+            mViewModel.appManager.persistenceManager.removeSession()
+            builder.dismiss()
+        }
+        dialogView.Local.setOnClickListener {
+            mViewModel.appManager.persistenceManager.isLocalSource(true)
+            mViewModel.appManager.persistenceManager.removeSession()
+            builder.dismiss()
+        }
+        dialogView.Dismiss.setOnClickListener{
+            builder.dismiss()
+
+        }
+        builder.show()
+//        builder.setCancelable(false)
+    }
 
 }

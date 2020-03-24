@@ -15,8 +15,8 @@ import static com.zahid.coolshoptest.utils.Constants.SessionModelTAG;
 
 public class PersistenceManager {
 
-    Context context;
-    SharedPreferences preference;
+   private Context context;
+   private SharedPreferences preference;
 
     public PersistenceManager(Context context) {
         this.context = context;
@@ -62,6 +62,15 @@ public class PersistenceManager {
     }
     public void removeSession() {
         preference.edit().remove(SessionModelTAG).apply();
+    }
+
+    public void isLocalSource(boolean setSouceLocat) {
+        preference.edit().putBoolean("local", setSouceLocat).apply();
+    }
+
+    public boolean isLocalSource() {
+
+        return preference.getBoolean("local", true);
     }
 
 }

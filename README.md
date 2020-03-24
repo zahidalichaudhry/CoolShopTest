@@ -32,6 +32,13 @@
 - when Main Activity created i check if session is available then directly go to profile otherwise stay on the Sign screen.
 # How did you cope with building the sample app without having access to the real back-end API.
 # Answer:
+- To achieve there was 2  options one is to  use local host services like XAMPP and create api PHP based other was to use local data base to for storage and calling.
+- I implement both so I can show you that I am comfortable with both.
+- When application will start you will see dialog box to chose your backend you can choose local or web.
+
+## API BASED USING PHP
+- To use this just copy folder name coolshoptest from root of this repository. Then import file coolshoptest.sql from DB folder which is inside this folder.
+- Change BASE_URL from Android file ApiUtils.kt form api package and then you can test it.
 - I used XAMPP local server and created PHP files Api files that access the MySQl data base.
 - I include the folder of server side coding.
 - DB folder have coolshoptest.Sql file you can import that to check db.
@@ -40,5 +47,9 @@
 - Users and another folder inside named Uploads where your photos will be uploaded.
 - avatar.php file is which upload file after decoding from base64 this have Header named Authorization which includes Bearer token if token is verified then proceed to next.
 - user.php uses get method it also uses Bearer Token Authorization and then give you user detail.
+## LOCAL DATA BASE ROOM
+- For local database i used room library for storage.
+- Every operation is done on local data base Authorization is implement
+- In this I don't uplaod picture to server just save in database in Base64 format and when get convert that into bitmap
 # What testing did you do, and why?
 - I did manual testing I have never used automated testing in my previous jobs QA team does all the testing they did manual. I know about espresso, JUnit and mockito but I never used in my project so I didn't take the risk in this short time

@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -42,9 +43,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // ViewModel and LiveData
     //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
     def lifecycle_version = "2.2.0-alpha03"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    kapt "android.arch.lifecycle:compiler:1.1.1"
     // -- Coroutines
     def coroutines_version = "1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -65,8 +68,20 @@ dependencies {
     // --URL Image Loader
     def glideVersion = "4.9.0"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation files('libs/PhotoUtil.jar')
 
     implementation 'androidx.exifinterface:exifinterface:1.3.0-alpha01'
+
+    //dependency for room persistance database
+    def roomDbVersion = "2.2.5"
+    //dependency for room persistance database
+    implementation "android.arch.persistence.room:runtime:$roomDbVersion"
+    kapt "android.arch.persistence.room:compiler:$roomDbVersion"
+
+//    implementation "androidx.room:room-runtime:$room_version"
+//    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomDbVersion"
 }
