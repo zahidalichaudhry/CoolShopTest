@@ -1,7 +1,5 @@
 package com.zahid.coolshoptest.local_db.dao
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.zahid.coolshoptest.local_db.entity.UserModelRoom
 

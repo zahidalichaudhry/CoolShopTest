@@ -3,7 +3,6 @@ package com.zahid.coolshoptest.managers
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import java.io.File
 
 class AppManager(application: Application) {
     val context: Context

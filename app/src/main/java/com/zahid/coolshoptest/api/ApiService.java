@@ -14,11 +14,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
-//    @Headers({"Accept:application/json", "Content-Type:application/json"})
-//    @POST("/mapApi/v1/siteService/reverseGeocode")
-//    Call<ReversGeoCodeMain> getReversGeocode(@Query("key") String API,@Body RequestBody body);
-
-
     @POST("/coolshoptest/Session/new.php")
     @FormUrlEncoded
     Call<GeneralResponseModel<SessionModel>> login(@Field("email") String email,

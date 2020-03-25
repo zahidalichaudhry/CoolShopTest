@@ -34,9 +34,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 
 function upload($userid,$avatar,$con){
+
+  $now = DateTime::createFromFormat('U.u', microtime(true));
+  $id = $now->format('YmdHisu');
     $upload_folder = "Uploads"; //DO NOT put url (http://example.com/upload)
-    $path = "$upload_folder/$userid.jpeg";
-    $link="$userid.jpeg";
+    $path = "$upload_folder/$id.jpeg";
+    $link="$id.jpeg";
   	$sql_query = "UPDATE account SET avatarUrl = '$link' WHERE userid= '$userid';";
        if(mysqli_query($con,$sql_query)){
          if(file_put_contents($path, base64_decode($avatar)) != false){

@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
                     (Objects.requireNonNull(activity) as MainActivity).showHidePleaseWaitDialog(
                         1
                     )
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
 
                 }
                 Status.status.LOADING -> {

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+
 import androidx.exifinterface.media.ExifInterface;
+
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -37,6 +39,7 @@ public class MediaManager {
 
         return Uri.parse(path);
     }
+
     public static Bitmap handleSamplingAndRotationBitmap(Context context, Uri selectedImage)
             throws IOException {
         int MAX_HEIGHT = 1024;
@@ -104,8 +107,7 @@ public class MediaManager {
         if (Build.VERSION.SDK_INT > 23) {
             assert input != null;
             ei = new ExifInterface(input);
-        }
-        else
+        } else
             ei = new ExifInterface(Objects.requireNonNull(selectedImage.getPath()));
 
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
@@ -152,12 +154,11 @@ public class MediaManager {
         return ecodedString;
 
     }
+
     public Bitmap decodBitmap(String string) {
-//        Bitmap bitmap;
 
 
         byte[] decodedString = Base64.decode(string, Base64.DEFAULT);
-        //        bitmap = ImageBase64.decode(string);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 }
